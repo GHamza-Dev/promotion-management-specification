@@ -1,0 +1,47 @@
+classDiagram
+   SuperAdmin --|> Person : extends
+   MarketAdmin --|> Person : extends
+   DepertementManager --|> Person : extends
+   Promotion "0.*" --* "1.1" Category : has a
+   MarketAdmin "1.1" -- "0.*" Promotion : Creates a
+
+   class Promotion{
+    -Integer promotionId
+    -Category category
+    -Float percentage
+    -Integer LoyaltyPoints
+    -Enum status
+    -Date createdAt
+    -Date availableUntil
+
+    +void createPromotion()
+    +void listPromotions()
+    +void changePromotionStatus()
+   }
+
+   class Category{
+    -Integer catID
+    -String categoryName
+
+   }
+   
+   class Person{
+    -Integer id
+    -String email
+    -String username
+    -String password
+
+    +void login(credentials)
+   }
+
+   class SuperAdmin{
+
+   }
+
+   class MarketAdmin{
+    +void createAdminMarket()
+   }
+
+   class DepertementManager{
+    +void createDptManager()
+   }
