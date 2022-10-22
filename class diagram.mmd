@@ -1,37 +1,47 @@
 classDiagram
-   SuperAdmin --|> Person : extends
-   MarketAdmin --|> Person : extends
-   DepertementManager --|> Person : extends
-   Promotion "0.*" --* "1.1" Category : has a
-   MarketAdmin "1.1" -- "0.*" Promotion : Creates a
+   
+   direction LR
+   
+   SuperAdmin --|> Person: extends
+   MarketAdmin --|> Person: extends
+   DepertementManager --|> Person: extends
+   Promotion "0.*" --* "1.1" SubCategory: has a
+   MarketAdmin "1.1" -- "0.*" Promotion: creates a
+   Category "1.1" *-- "0.*" SubCategory: has many
+   DepertementManager "1.1" -- Category: manage
 
    class Promotion{
-    -Integer promotionId
-    -Category category
-    -Float percentage
-    -Integer LoyaltyPoints
-    -Enum status
-    -Date createdAt
-    -Date availableUntil
+    -promotionId: Integer
+    -subCategory: SubCategory 
+    -percentage: Float 
+    -LoyaltyPoints: Integer 
+    -status: Enum 
+    -createdAt: Date
+    -availableUntil: Date 
 
-    +void createPromotion()
-    +void listPromotions()
-    +void changePromotionStatus()
+    +createPromotion() void
+    +listPromotions() void
+    +changePromotionStatus() void
+   }
+
+   class SubCategory{
+    -SubCatID: Integer 
+    -SubCategoryName: String 
    }
 
    class Category{
-    -Integer catID
-    -String categoryName
-
+    -catID: Integer 
+    -categoryName: String 
+    -subCats: SubCategory  
    }
    
    class Person{
-    -Integer id
-    -String email
-    -String username
-    -String password
+    -id: Integer 
+    -email: String 
+    -username: String 
+    -password: String 
 
-    +void login(credentials)
+    +login(credentials) void
    }
 
    class SuperAdmin{
@@ -39,9 +49,9 @@ classDiagram
    }
 
    class MarketAdmin{
-    +void createAdminMarket()
+    +createAdminMarket() void
    }
 
    class DepertementManager{
-    +void createDptManager()
+    +createDptManager() void
    }
