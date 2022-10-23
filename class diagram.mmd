@@ -1,14 +1,20 @@
 classDiagram
-   
-   direction LR
-   
+   direction TB
+
    SuperAdmin --|> Person: extends
    MarketAdmin --|> Person: extends
-   DepertementManager --|> Person: extends
+   %% DepertementManager --|> Person: extends
    Promotion "0.*" --* "1.1" SubCategory: has a
    MarketAdmin "1.1" -- "0.*" Promotion: creates a
    Category "1.1" *-- "0.*" SubCategory: has many
    DepertementManager "1.1" -- Category: manage
+   MarketAdmin -- Market: manage
+
+   class Market{
+      -marketId: Integer
+      -city: String
+      -manager MarketAdmin
+   }
 
    class Promotion{
     -promotionId: Integer
