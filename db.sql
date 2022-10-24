@@ -93,3 +93,34 @@ CREATE TABLE promotion(
 	REFERENCES market_admin(id) 
 	ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
+-- Remove subcategory table and rempalce it with a field 
+-- in the category table (parent child)
+    -- 1 -- Remove all sub cat ids from other tables
+    -- 2 -- Drop subcategory table
+    -- 3 -- Create new field (parent_id) in category table
+    -- 4 -- Link promotion with category
+
+-- 1:
+ALTER TABLE promotion
+    DROP COLUMN sub_cat_id;
+
+-- 2:
+DROP TABLE subcategory;
+
+-- 3:
+ALTER TABLE category
+    ADD COLUMN parent_id Integer DEFAULT NULL;
+
+ALTER TABLE category
+ ADD CONSTRAINT parent_id_fk FOREIGN KEY (parent_id) REFERENCES category(id);
+
+-- 4:
+ALTER TABLE promotion
+    ADD COLUMN category_id Integer;
+
+ALTER TABLE promotion
+    ADD CONSTRAINT fk_promotion_category
+    FOREIGN KEY (category_id) REFERENCES category(id)
+    ON UPDATE CASCADE ON DELETE CASCADE;
