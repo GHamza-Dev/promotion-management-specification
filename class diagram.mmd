@@ -9,6 +9,7 @@ classDiagram
    Category "1.1" *-- "0.*" SubCategory: has many
    DepertementManager "1.1" -- Category: manage
    MarketAdmin -- Market: manage
+   DepertementManager -- Market
 
    class Market{
       -marketId: Integer

@@ -124,3 +124,24 @@ ALTER TABLE promotion
     ADD CONSTRAINT fk_promotion_category
     FOREIGN KEY (category_id) REFERENCES category(id)
     ON UPDATE CASCADE ON DELETE CASCADE;
+
+-- Departement manager <-> market
+ALTER TABLE departement_manager
+    ADD COLUMN market_id Integer;
+
+ALTER TABLE departement_manager
+    ADD CONSTRAINT fk_market_deparetement_manager
+    FOREIGN KEY(market_id) 
+	REFERENCES market(id) 
+	ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+ALTER TABLE promotion
+    ALTER COLUMN status SET DEFAULT 'not-treated';
+
+ALTER TABLE promotion
+    ALTER COLUMN created_at SET DEFAULT CURRENT_DATE;
+
+
+ALTER TABLE market
+    ADD COLUMN address VARCHAR(50) NOT NULL;
